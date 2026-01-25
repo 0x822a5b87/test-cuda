@@ -5,8 +5,11 @@ project(CUDA_Test LANGUAGES CUDA CXX)
 set(CMAKE_CUDA_ARCHITECTURES 89)
 
 add_executable(add_cpu cpu/add.cpp)
-add_executable(hello gpu/hello.cu)
-add_executable(add_gpu_1 gpu/add_gpu_1.cu)
-add_executable(add_gpu_2 gpu/add_gpu_2.cu)
-add_executable(add_gpu_3 gpu/add_gpu_3.cu)
-add_executable(add_gpu_4 gpu/add_gpu_4.cu)
+add_executable(hello gpu/hello/hello.cu)
+add_executable(add_gpu_1 gpu/add/add_gpu_1.cu)
+add_executable(add_gpu_2 gpu/add/add_gpu_2.cu)
+add_executable(add_gpu_3 gpu/add/add_gpu_3.cu)
+add_executable(add_gpu_4 gpu/add/add_gpu_4.cu)
+
+# matrix_tranpose
+add_executable(matrix_transpose gpu/matrix_transpose/matrix_transpose_2.cu)
