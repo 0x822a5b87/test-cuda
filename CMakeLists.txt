@@ -17,6 +17,10 @@ add_executable(add_gpu_4 gpu/add/add_gpu_4.cu)
 add_executable(matrix_transpose gpu/matrix_transpose/matrix_transpose_2.cu)
 target_include_directories(matrix_transpose PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
+# matrix_tranpose_shared_memory
+add_executable(matrix_transpose_shared_memory gpu/matrix_transpose/matrix_transpose_shared_memory.cu)
+target_include_directories(matrix_transpose_shared_memory PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
 set_target_properties(matrix_transpose PROPERTIES
     CUDA_ARCHITECTURES 75
     CUDA_STANDARD 17
