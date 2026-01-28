@@ -13,15 +13,26 @@ add_executable(add_gpu_2 gpu/add/add_gpu_2.cu)
 add_executable(add_gpu_3 gpu/add/add_gpu_3.cu)
 add_executable(add_gpu_4 gpu/add/add_gpu_4.cu)
 
-# matrix_tranpose
+# matrix_transpose
 add_executable(matrix_transpose gpu/matrix_transpose/matrix_transpose_2.cu)
 target_include_directories(matrix_transpose PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-# matrix_tranpose_shared_memory
+# matrix_transpose_shared_memory
 add_executable(matrix_transpose_shared_memory gpu/matrix_transpose/matrix_transpose_shared_memory.cu)
 target_include_directories(matrix_transpose_shared_memory PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-set_target_properties(matrix_transpose PROPERTIES
-    CUDA_ARCHITECTURES 75
-    CUDA_STANDARD 17
+
+# sgemm
+add_executable(naive_sgemm 
+    gpu/sgemm/sgemm.cu 
+    gpu/sgemm/sgemm_util.cu
+    util.cu 
 )
+target_include_directories(naive_sgemm PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/sgemm)
+
+add_executable(shared_sgemm 
+    gpu/sgemm/sgemm_shared.cu 
+    gpu/sgemm/sgemm_util.cu
+    util.cu 
+)
+target_include_directories(shared_sgemm PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/sgemm)

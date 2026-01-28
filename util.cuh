@@ -41,4 +41,8 @@
                 }                                               \
             }                                                   \
         }                                                       \
-    } while (0)
+    } while (0) 
+
+
+float *allocateMatricOnHost(int rows, int cols);
+float *allocateMatrixOnDevice(int rows, int cols);
