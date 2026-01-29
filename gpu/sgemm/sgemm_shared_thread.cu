@@ -2,15 +2,16 @@
 #include <cuda_runtime.h>
 #include <sgemm_util.cuh>
 
-constexpr int POWER = 16; constexpr int M = 1024 * POWER;
+constexpr int POWER = 16;
+constexpr int M = 1024 * POWER;
 constexpr int N = 512 * POWER;
 constexpr int K = 128 * POWER;
 
-constexpr int BM = 128;
-constexpr int BN = 128;
+constexpr int BM = 64;
+constexpr int BN = 64;
 constexpr int BK = 8;
 constexpr int TM = 8;
-constexpr int TN = 8;
+constexpr int TN = 4;
 
 #define ceil(x, y) (((x) + (y) - 1) / (y))
 
