@@ -36,3 +36,10 @@ add_executable(shared_sgemm
     util.cu 
 )
 target_include_directories(shared_sgemm PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/sgemm)
+
+add_executable(shared_sgemm_thread
+        util.cu
+        gpu/sgemm/sgemm_util.cu
+        gpu/sgemm/sgemm_shared_thread.cu
+)
+target_include_directories(shared_sgemm_thread PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/sgemm)
