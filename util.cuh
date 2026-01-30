@@ -1,7 +1,7 @@
 #pragma once
-#include <cuda_runtime.h>
 #include <cstdio>
-#include <cstdlib>
+#include <cuda_runtime.h>
+#include <iostream>
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_RESET "\x1b[0m"
@@ -41,8 +41,29 @@
                 }                                               \
             }                                                   \
         }                                                       \
-    } while (0) 
+    } while (0)
+
+#define GLOBAL_TX ((blockIdx.x) * (blockDim.x) + (threadIdx.x))
 
 
 float *allocateMatricOnHost(int rows, int cols);
+
 float *allocateMatrixOnDevice(int rows, int cols);
+
+template<typename T>
+T *allocateArrOnHost(const size_t len) {
+    const auto h_arr = static_cast<T *>(malloc(len));
+    if (h_arr == nullptr) {
+        std::cerr << "Failed to allocate host arr" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    return h_arr;
+}
+
+template<typename T>
+T *allocateArrOnDevice(const size_t len) {
+    T *d_arr;
+    CHECK(cudaMalloc(&d_arr, len));
+    return d_arr;
+}
+

@@ -43,3 +43,9 @@ add_executable(shared_sgemm_thread
         gpu/sgemm/sgemm_shared_thread.cu
 )
 target_include_directories(shared_sgemm_thread PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/sgemm)
+
+add_executable(naive_reduce util.cu gpu/reduce/naive_reduce.cu)
+target_include_directories(naive_reduce PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
+
+add_executable(naive_reduce_2 util.cu gpu/reduce/naive_reduce_2.cu)
+target_include_directories(naive_reduce_2 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
