@@ -49,3 +49,6 @@ target_include_directories(naive_reduce PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CM
 
 add_executable(naive_reduce_2 util.cu gpu/reduce/naive_reduce_2.cu)
 target_include_directories(naive_reduce_2 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
+
+add_executable(reduce_eliminate_divergence util.cu gpu/reduce/reduce_eliminate_divergence.cu)
+target_include_directories(reduce_eliminate_divergence PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
