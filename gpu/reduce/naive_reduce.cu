@@ -1,5 +1,6 @@
 #include "cuda_runtime.h"
 #include <util.cuh>
+#include <reduce_util.cuh>
 
 template<int THREAD_NUM>
 __global__ void reduce_naive_kernel(const int *arr, int *out, const int len) {
@@ -24,13 +25,10 @@ __global__ void reduce_naive_kernel(const int *arr, int *out, const int len) {
 }
 
 int main(int argc, char *argv[]) {
-    constexpr size_t len = 1000;
+    constexpr size_t len = 100000000;
     int h_out = 0;
 
-    int *h_arr = allocateArrOnHost<int>(sizeof(int) * len);
-    for (int i = 0; i < len; i++) {
-        h_arr[i] = i;
-    }
+    int *h_arr = allocateIntArrOnHost(sizeof(int) * len);
 
     int *d_out;
     CHECK(cudaMalloc(&d_out, sizeof(int)))
@@ -43,7 +41,7 @@ int main(int argc, char *argv[]) {
 
     CHECK(cudaMemcpy(&h_out, d_out, sizeof(int), cudaMemcpyDeviceToHost));
 
-    printf("h_out = %d\n", h_out);
+    checkReduceResult(h_out, h_arr, len);
 
     CHECK(cudaFree(d_arr));
     CHECK(cudaFree(d_out));
