@@ -58,3 +58,6 @@ target_include_directories(reduce_vectorized PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 
 add_executable(reduce_vectorized_2 util.cu gpu/reduce/reduce_vectorized_2.cu)
 target_include_directories(reduce_vectorized_2 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
+
+add_executable(reduce_shuffle util.cu gpu/reduce/reduce_shuffle.cu)
+target_include_directories(reduce_shuffle PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
