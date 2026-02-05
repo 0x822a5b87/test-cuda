@@ -55,3 +55,6 @@ target_include_directories(reduce_eliminate_divergence PRIVATE ${CMAKE_CURRENT_S
 
 add_executable(reduce_vectorized util.cu gpu/reduce/reduce_vectorized.cu)
 target_include_directories(reduce_vectorized PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
+
+add_executable(reduce_vectorized_2 util.cu gpu/reduce/reduce_vectorized_2.cu)
+target_include_directories(reduce_vectorized_2 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
