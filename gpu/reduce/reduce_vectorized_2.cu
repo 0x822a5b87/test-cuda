@@ -2,12 +2,14 @@
 #include <util.cuh>
 #include <reduce_util.cuh>
 
+constexpr unsigned NUMBER_PER_THREAD = 4;
+
 template<int THREAD_NUM>
 __global__ void reduce_vectorized(const int *arr, int *out, const int len) {
     __shared__ int ssm[THREAD_NUM];
     const unsigned tx = threadIdx.x;
     const unsigned global_tx = (blockIdx.x * blockDim.x) + tx;
-    if (global_tx * 4 < len) {
+    if (global_tx * NUMBER_PER_THREAD < len) {
         const auto [x, y, z, w] = reinterpret_cast<const int4*>(arr)[global_tx];
         ssm[tx] = x + y + z + w;
     } else {
@@ -42,7 +44,8 @@ int main(int argc, char *argv[]) {
     CHECK(cudaMemcpy(d_arr, h_arr, sizeof(int) * len, cudaMemcpyHostToDevice));
 
     constexpr int thread_num = 32;
-    constexpr int block_num = (len + thread_num - 1) / thread_num;
+    constexpr int stride = thread_num * NUMBER_PER_THREAD;
+    constexpr int block_num = (len + stride - 1) / stride;
     reduce_vectorized<thread_num><<<block_num, thread_num>>>(d_arr, d_out, len);
 
     CHECK(cudaMemcpy(&h_out, d_out, sizeof(int), cudaMemcpyDeviceToHost));
