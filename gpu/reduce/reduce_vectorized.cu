@@ -19,7 +19,7 @@ __global__ void reduce_vectorized(const int *arr, int *out, const int len) {
     const size_t start = tx * 4;
     // 这里，我们将 [tx * 4, tx * 4 + 3] 这段数据计算后存储到 tx
     // 当当前block的所有线程执行完毕之后，所有的数据相当于被压缩到了 [0, THREAD_NUM) 这段 ssm 内
-    // 后续的 ssm 数据已经不再使
+    // 后续的 ssm 数据已经不再使用
     const int int4_sum = ssm[start] + ssm[start + 1] + ssm[start + 2] + ssm[start + 3];
     __syncthreads();
     ssm[tx] = int4_sum;
