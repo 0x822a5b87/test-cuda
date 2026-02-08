@@ -61,3 +61,6 @@ target_include_directories(reduce_vectorized_2 PRIVATE ${CMAKE_CURRENT_SOURCE_DI
 
 add_executable(reduce_shuffle util.cu gpu/reduce/reduce_shuffle.cu)
 target_include_directories(reduce_shuffle PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/reduce)
+
+add_executable(naive_conv gpu/conv/naive_conv.cu gpu/conv/conv_util.cu)
+target_include_directories(naive_conv PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/conv)
