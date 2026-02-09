@@ -64,3 +64,7 @@ target_include_directories(reduce_shuffle PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${
 
 add_executable(naive_conv gpu/conv/naive_conv.cu gpu/conv/conv_util.cu)
 target_include_directories(naive_conv PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/gpu/conv)
+
+add_executable(vector_addition leetgpu/vector_addition.cu)
+add_executable(matrix_multiplication_v1 leetgpu/matrix_multiplication_v1.cu)
+add_executable(matrix_multiplication_v2 leetgpu/matrix_multiplication_v2.cu)
