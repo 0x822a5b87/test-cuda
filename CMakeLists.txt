@@ -68,5 +68,4 @@ target_include_directories(naive_conv PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAK
 add_executable(vector_addition leetgpu/vector_addition.cu)
 add_executable(matrix_multiplication_v1 leetgpu/matrix_multiplication_v1.cu)
 add_executable(matrix_multiplication_v2 leetgpu/matrix_multiplication_v2.cu)
-add_executable(matrix_transpose_v1 leetgpu/matrix_transpose_v1.cu)
-add_executable(matrix_transpose_v2 leetgpu/matrix_transpose_v2.cu)
+add_executable(color_inversion leetgpu/color_inversion_v1.cu)

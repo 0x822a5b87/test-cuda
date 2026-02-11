@@ -7,8 +7,8 @@ constexpr int M = 1024 * POWER;
 constexpr int N = 512 * POWER;
 constexpr int K = 128 * POWER;
 
-constexpr int BM = 64;
-constexpr int BN = 64;
+constexpr int BX = 64;
+constexpr int BY = 64;
 constexpr int BK = 8;
 constexpr int TM = 8;
 constexpr int TN = 4;
@@ -16,8 +16,8 @@ constexpr int TN = 4;
 #define ceil(x, y) (((x) + (y) - 1) / (y))
 
 __global__ void tiled_sgemm_kernel(const float *A, const float *B, float *C, int M, int N, int K) {
-    __shared__ float sA[BM][BK];
-    __shared__ float sB[BK][BN];
+    __shared__ float sA[BX][BK];
+    __shared__ float sB[BK][BY];
 
     // 线程私有的变量
     float res[TM][TN];
@@ -35,14 +35,14 @@ __global__ void tiled_sgemm_kernel(const float *A, const float *B, float *C, int
     // LOOP FOR THE BLOCK
     for (size_t m = 0; m < ((K + BK - 1) / BK); m++) {
         // LOOP FOR sA
-        for (size_t i = 0; i < ceil(BM * BK, thread_num); i++) {
+        for (size_t i = 0; i < ceil(BX * BK, thread_num); i++) {
             const unsigned load_id = tid + i * thread_num;
-            if (load_id < BM * BK) {
+            if (load_id < BX * BK) {
                 const unsigned r = load_id / BK;
                 const unsigned c = load_id % BK;
                 // 我们的矩阵在横向移动，所以它的行是随着 r 变化而变化，而列随着矩阵的移动也会变化（和 m 关联）
                 // 此外，我们不能使用 blockIdx.y * blockDim.y 来计算行偏移量，因为我们的线程粗化了
-                const unsigned global_row = blockIdx.y * BM + r;
+                const unsigned global_row = blockIdx.y * BX + r;
                 const unsigned global_col = m * BK + c;
                 if (global_row < M && global_col < K) {
                     sA[r][c] = A[global_row * K + global_col];
@@ -53,13 +53,13 @@ __global__ void tiled_sgemm_kernel(const float *A, const float *B, float *C, int
         }
 
         // LOOP FOR sB
-        for (size_t i = 0; i < ceil(BK * BN, thread_num); i++) {
+        for (size_t i = 0; i < ceil(BK * BY, thread_num); i++) {
             const unsigned load_id = tid + i * thread_num;
-            if (load_id < BK * BN) {
-                const unsigned r = load_id / BN;
-                const unsigned c = load_id % BN;
+            if (load_id < BK * BY) {
+                const unsigned r = load_id / BY;
+                const unsigned c = load_id % BY;
                 const unsigned global_row = m * BK + r;
-                const unsigned global_col = blockIdx.x * BN + c;
+                const unsigned global_col = blockIdx.x * BY + c;
                 if (global_row < K && global_col < N) {
                     sB[r][c] = B[global_row * N + global_col];
                 } else {
@@ -101,8 +101,8 @@ __global__ void tiled_sgemm_kernel(const float *A, const float *B, float *C, int
     // Now the calculation of the block is finish, output the result to C
     for (size_t i = 0; i < TM; i++) {
         for (size_t j = 0; j < TN; j++) {
-            unsigned global_row = blockIdx.y * BM + ty * TM + i;
-            unsigned global_col = blockIdx.x * BN + tx * TN + j;
+            unsigned global_row = blockIdx.y * BX + ty * TM + i;
+            unsigned global_col = blockIdx.x * BY + tx * TN + j;
             if (global_row < M && global_col < N) {
                 C[global_row * N + global_col] = res[i][j];
             }
@@ -111,8 +111,8 @@ __global__ void tiled_sgemm_kernel(const float *A, const float *B, float *C, int
 }
 
 void launch_sgemm_kernel(const device_sgemm_t *d_sgemm) {
-    dim3 block(BN / TN, BM / TM);
-    dim3 grid(ceil(d_sgemm->N, BN), ceil(d_sgemm->M, BM));
+    dim3 block(BY / TN, BX / TM);
+    dim3 grid(ceil(d_sgemm->N, BY), ceil(d_sgemm->M, BX));
     tiled_sgemm_kernel<<<grid, block>>>(d_sgemm->A, d_sgemm->B, d_sgemm->C, M, N, K);
 }
 
