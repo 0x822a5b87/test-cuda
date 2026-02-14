@@ -45,3 +45,9 @@ extern "C" void solve(const float* A, const float* B, float* C, int N) {
 
     cudaDeviceSynchronize();
 }
+
+int main(int argc, char const *argv[])
+{
+    /* code */
+    return 0;
+}

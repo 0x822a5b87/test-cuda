@@ -70,3 +70,7 @@ add_executable(matrix_multiplication_v1 leetgpu/matrix_multiplication_v1.cu)
 add_executable(matrix_multiplication_v2 leetgpu/matrix_multiplication_v2.cu)
 add_executable(color_inversion leetgpu/color_inversion_v1.cu)
 add_executable(matrix_addition leetgpu/matrix_addition.cu)
+
+add_library(convolution_1d leetgpu/convolution_1d.cu)
+add_library(reverse_array_v1 leetgpu/reverse_array_v1.cu)
+add_library(relu leetgpu/relu.cu)
