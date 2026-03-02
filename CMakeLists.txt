@@ -84,3 +84,7 @@ add_library(value_clipping leetgpu/value_clipping.cu)
 add_library(interleave_arrays leetgpu/interleave_arrays.cu)
 add_library(geglu leetgpu/geglu.cu)
 add_library(rgb_to_grayscale leetgpu/rgb_to_grayscale.cu)
+
+add_library(add leetgpu/add.cu)
+add_library(add_v2 leetgpu/add_v2.cu)
+add_library(softmax leetgpu/softmax.cu)
