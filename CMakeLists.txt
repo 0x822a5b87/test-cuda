@@ -87,4 +87,5 @@ add_library(rgb_to_grayscale leetgpu/rgb_to_grayscale.cu)
 
 add_library(add leetgpu/add.cu)
 add_library(add_v2 leetgpu/add_v2.cu)
+add_library(dot_product leetgpu/dot_product.cu)
 add_library(softmax leetgpu/softmax.cu)
