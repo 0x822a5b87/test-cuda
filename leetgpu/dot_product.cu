@@ -17,7 +17,7 @@ __device__ __forceinline__ float prod_reduce(float val)
     return val;
 }
 
-__global__ void dot_product(const float *A, const float *B, float *result, int N)
+__global__ void mse_kernel(const float *A, const float *B, float *result, int N)
 {
     unsigned tid = blockIdx.x * blockDim.x + threadIdx.x;
     unsigned block_tile = gridDim.x * blockDim.x;
@@ -57,6 +57,6 @@ __global__ void dot_product(const float *A, const float *B, float *result, int N
 
 extern "C" void solve(const float *A, const float *B, float *result, int N)
 {
-    dot_product<<<432, THREAD_PER_BLOCK>>>(A, B, result, N);
+    mse_kernel<<<432, THREAD_PER_BLOCK>>>(A, B, result, N);
     cudaDeviceSynchronize();
 }
