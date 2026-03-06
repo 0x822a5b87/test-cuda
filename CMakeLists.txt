@@ -95,3 +95,8 @@ add_library(subarray_sum leetgpu/subarray_sum.cu)
 add_library(subarray_sum_v2 leetgpu/subarray_sum_v2.cu)
 add_library(subarray_sum_v3 leetgpu/subarray_sum_v3.cu)
 add_library(subarray_sum_v4 leetgpu/subarray_sum_v4.cu)
+
+add_library(subarray_sum_2d_v1 leetgpu/subarray_sum_2d_v1.cu)
+add_library(subarray_sum_2d_v2 leetgpu/subarray_sum_2d_v2.cu)
+
+add_library(subarray_sum_3d_v1 leetgpu/subarray_sum_3d_v1.cu)
