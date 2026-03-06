@@ -98,5 +98,7 @@ add_library(subarray_sum_v4 leetgpu/subarray_sum_v4.cu)
 
 add_library(subarray_sum_2d_v1 leetgpu/subarray_sum_2d_v1.cu)
 add_library(subarray_sum_2d_v2 leetgpu/subarray_sum_2d_v2.cu)
-
 add_library(subarray_sum_3d_v1 leetgpu/subarray_sum_3d_v1.cu)
+
+add_library(max_pooling_2d leetgpu/max_pooling_2d.cu)
+add_library(max_pooling_2d_v2 leetgpu/max_pooling_2d_v2.cu)
