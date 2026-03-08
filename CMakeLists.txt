@@ -72,6 +72,7 @@ add_executable(color_inversion leetgpu/color_inversion_v1.cu)
 add_executable(matrix_addition leetgpu/matrix_addition.cu)
 
 add_library(convolution_1d leetgpu/convolution_1d.cu)
+add_library(convolution_1d_v2 leetgpu/convolution_1d_v2.cu)
 add_library(reverse_array_v1 leetgpu/reverse_array_v1.cu)
 add_library(relu leetgpu/relu.cu)
 add_library(leaky_relu leetgpu/leaky_relu.cu)
@@ -102,3 +103,6 @@ add_library(subarray_sum_3d_v1 leetgpu/subarray_sum_3d_v1.cu)
 
 add_library(max_pooling_2d leetgpu/max_pooling_2d.cu)
 add_library(max_pooling_2d_v2 leetgpu/max_pooling_2d_v2.cu)
+
+add_library(convolution_2d_v1 leetgpu/convolution_2d_v1.cu)
+add_library(convolution_2d_v2 leetgpu/convolution_2d_v2.cu)
